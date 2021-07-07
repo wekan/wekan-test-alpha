@@ -1,4 +1,4 @@
-name: wekan
+name: wekan-test-alpha
 base: core20
 version: 5.37
 summary: The open-source kanban
