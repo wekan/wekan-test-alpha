@@ -1,5 +1,6 @@
 name: wekan
-version: '5.37'
+base: core20
+version: 5.37
 summary: The open-source kanban
 description: |
    Wekan is an open-source and collaborative kanban board application.
@@ -64,9 +65,9 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz
+        source: https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/4.4/multiverse/binary-amd64/mongodb-org-server_4.4.6_amd64.deb
         plugin: dump
-        stage-packages: [libssl1.0.0]
+        stage-packages: [libssl1.1, libcurl4]
         filesets:
             mongo:
                 - usr
@@ -79,24 +80,17 @@ parts:
 
     wekan:
         source: .
-        plugin: nodejs
-        node-engine: 12.22.2
-        node-packages:
-            - node-gyp
-            - node-pre-gyp
-            - fibers
+        plugin: npm
+        npm-node-version: 12.22.2
         build-packages:
             - ca-certificates
             - apt-utils
-            - python
-#            - python3
+            - python3
             - g++
             - capnproto
             - curl
+            - libcurl4
             - execstack
-            - nodejs
-            - npm
-#            - p7zip-full
         stage-packages:
             - libfontconfig1
         override-build: |
@@ -154,7 +148,6 @@ parts:
             README: README.wekan
         prime:
             - -lib/node_modules/node-pre-gyp/node_modules/tar/lib/.unpack.js.swp
-            - -lib/node_modules/weka*
 
     helpers:
         source: snap-src
