@@ -91,6 +91,7 @@ parts:
             - curl
             - libcurl4
             - execstack
+            - npm
         stage-packages:
             - libfontconfig1
         override-build: |
